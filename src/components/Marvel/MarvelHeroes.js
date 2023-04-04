@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: flex;
+  display: absolute;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -14,14 +14,13 @@ const Container = styled.div`
 
   div {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-top: 1rem;
+  }
 
     img {
-      width: 150px;
-      height: 150px;
+      width: 20vw;
       margin-right: 1rem;
       object-fit: cover;
     }
@@ -33,6 +32,15 @@ const Container = styled.div`
     p {
       margin: 0;
     }
+  }`;
+const HeroContainer = styled.div`
+  div {
+    background-color: gray;
+    width: 45vw;
+  }
+`;
+const HeroName = styled.div`
+  div {
   }
 `;
 
@@ -104,13 +112,15 @@ export default function MarvelHeroes() {
       <SearchBar onSearch={handleSearch} />
       {errorMessage !== "" && <p>{errorMessage}</p>}
       {heroes.map((hero) => (
-        <div key={hero.id}>
-          <img src={hero.image.url} alt={`${hero.name}`} />
-          <div>
-            <h2>{hero.name}</h2>
-            <p>{hero.biography.publisher}</p>
+        <HeroContainer>
+          <div key={hero.id}>
+            <img src={hero.image.url} alt={`${hero.name}`} />
+            <HeroName>
+              <h2>{hero.name}</h2>
+              <p>{hero.biography.publisher}</p>
+            </HeroName>
           </div>
-        </div>
+        </HeroContainer>
       ))}
     </Container>
   );
