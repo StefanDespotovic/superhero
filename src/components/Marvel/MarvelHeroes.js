@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import styled from "styled-components";
+import {
+  faBrain,
+  faDumbbell,
+  faTachometer,
+  faShield,
+  faBolt,
+  faFistRaised,
+} from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
-  display: absolute;
+  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -23,25 +33,35 @@ const Container = styled.div`
       width: 20vw;
       margin-right: 1rem;
       object-fit: cover;
+      border-radius:10px;
+      transition: transform 0.3s ease-in-out; 
+      &:hover { transform: scale(1.02); }
     }
 
-    h2 {
-      margin: 0;
-    }
 
-    p {
-      margin: 0;
-    }
   }`;
 const HeroContainer = styled.div`
   div {
     background-color: gray;
-    width: 45vw;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 10px;
   }
 `;
+
 const HeroName = styled.div`
-  div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 25vw;
+  h2 {
+    margin: 0;
   }
+`;
+const Powerstat = styled.p`
+  color: white;
 `;
 
 export default function MarvelHeroes() {
@@ -70,9 +90,10 @@ export default function MarvelHeroes() {
   useEffect(() => {
     async function searchHero() {
       try {
-        console.log("Searching for Marvel hero:", searchQuery);
+        console.log("Searching for DC hero:", searchQuery);
         if (searchQuery === "") {
-          searchHero();
+          setHeroes([]);
+          setErrorMessage("");
           return;
         }
         const response = await fetch(
@@ -112,11 +133,35 @@ export default function MarvelHeroes() {
       <SearchBar onSearch={handleSearch} />
       {errorMessage !== "" && <p>{errorMessage}</p>}
       {heroes.map((hero) => (
-        <HeroContainer>
-          <div key={hero.id}>
+        <HeroContainer key={hero.id}>
+          <div>
             <img src={hero.image.url} alt={`${hero.name}`} />
             <HeroName>
               <h2>{hero.name}</h2>
+              <Powerstat>
+                <FontAwesomeIcon icon={faBrain} />
+                {hero.powerstats.intelligence}
+              </Powerstat>
+              <Powerstat>
+                <FontAwesomeIcon icon={faDumbbell} />
+                {hero.powerstats.strength}
+              </Powerstat>
+              <Powerstat>
+                <FontAwesomeIcon icon={faTachometer} />
+                {hero.powerstats.speed}
+              </Powerstat>
+              <Powerstat>
+                <FontAwesomeIcon icon={faShield} />
+                {hero.powerstats.durability}
+              </Powerstat>
+              <Powerstat>
+                <FontAwesomeIcon icon={faBolt} />
+                {hero.powerstats.power}
+              </Powerstat>
+              <Powerstat>
+                <FontAwesomeIcon icon={faFistRaised} />
+                {hero.powerstats.combat}
+              </Powerstat>
               <p>{hero.biography.publisher}</p>
             </HeroName>
           </div>

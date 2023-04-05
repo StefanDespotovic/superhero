@@ -41,6 +41,7 @@ const Input = styled.input`
 
 const SuggestionsWrapper = styled.div`
   position: relative;
+  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -96,7 +97,7 @@ export default function SearchBar(props) {
       const response = await fetch(
         `https://superheroapi.com/api.php/3368847760052098/search/${query.replace(
           /\s/g,
-          "-"
+          " "
         )}?publisher=Marvel%20Comics`
       );
       const data = await response.json();
