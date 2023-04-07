@@ -18,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   text-align: center;
 
+
   h1 {
     margin-top: 1rem;
   }
@@ -30,7 +31,7 @@ const Container = styled.div`
   }
 
     img {
-      width: 20vw;
+      width: 23vw;
       margin-right: 1rem;
       object-fit: cover;
       border-radius:10px;
@@ -64,10 +65,54 @@ const Powerstat = styled.p`
   color: white;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 1vw;
+`;
+
+const Button = styled.button`
+  margin: 1%;
+  padding: 10px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+  }
+`;
+const HeroInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const HeroInfoRow = styled.div`
+  display: flex;
+  padding-left: 5px;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  width: 24vw;
+  background-color: lightblue !important;
+`;
+const HeroInfoLabel = styled.p`
+  font-weight: bold;
+  margin-right: 10px;
+`;
+const HeroInfoValue = styled.p`
+  flex: 2;
+  text-align: right;
+  margin-right: 2px;
+`;
+
 export default function MarvelHeroes() {
   const [heroes, setHeroes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [displayData, setDisplayData] = useState("powerstats");
 
   useEffect(() => {
     async function fetchHeroes() {
@@ -90,7 +135,7 @@ export default function MarvelHeroes() {
   useEffect(() => {
     async function searchHero() {
       try {
-        console.log("Searching for DC hero:", searchQuery);
+        console.log("Searching for Marvel hero:", searchQuery);
         if (searchQuery === "") {
           setHeroes([]);
           setErrorMessage("");
@@ -138,31 +183,108 @@ export default function MarvelHeroes() {
             <img src={hero.image.url} alt={`${hero.name}`} />
             <HeroName>
               <h2>{hero.name}</h2>
-              <Powerstat>
-                <FontAwesomeIcon icon={faBrain} />
-                {hero.powerstats.intelligence}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faDumbbell} />
-                {hero.powerstats.strength}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faTachometer} />
-                {hero.powerstats.speed}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faShield} />
-                {hero.powerstats.durability}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faBolt} />
-                {hero.powerstats.power}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faFistRaised} />
-                {hero.powerstats.combat}
-              </Powerstat>
-              <p>{hero.biography.publisher}</p>
+              <ButtonContainer>
+                <Button onClick={() => setDisplayData("powerstats")}>
+                  Powerstats
+                </Button>
+                <Button onClick={() => setDisplayData("biography")}>
+                  Biography
+                </Button>
+                <Button onClick={() => setDisplayData("appearance")}>
+                  Appearance
+                </Button>
+                <Button onClick={() => setDisplayData("connections")}>
+                  Connections
+                </Button>
+              </ButtonContainer>
+              {displayData === "powerstats" && (
+                <div>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faBrain} />
+                    {hero.powerstats.intelligence}
+                  </Powerstat>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faDumbbell} />
+                    {hero.powerstats.strength}
+                  </Powerstat>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faTachometer} />
+                    {hero.powerstats.speed}
+                  </Powerstat>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faShield} />
+                    {hero.powerstats.durability}
+                  </Powerstat>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faBolt} />
+                    {hero.powerstats.power}
+                  </Powerstat>
+                  <Powerstat>
+                    <FontAwesomeIcon icon={faFistRaised} />
+                    {hero.powerstats.combat}
+                  </Powerstat>
+                </div>
+              )}
+              {displayData === "biography" && (
+                <HeroInfo>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Full Name:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.biography["full-name"]}</HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Place of Birth:</HeroInfoLabel>
+                    <HeroInfoValue>
+                      {hero.biography["place-of-birth"]}
+                    </HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>First Appearance:</HeroInfoLabel>
+                    <HeroInfoValue>
+                      {hero.biography["first-appearance"]}
+                    </HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Publisher:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.biography.publisher}</HeroInfoValue>
+                  </HeroInfoRow>
+                </HeroInfo>
+              )}
+              {displayData === "appearance" && (
+                <HeroInfo>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Height:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.appearance.height[0]}</HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Weight:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.appearance.weight[0]}</HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Eye color:</HeroInfoLabel>
+                    <HeroInfoValue>
+                      {hero.appearance["hair-color"]}
+                    </HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Hair color:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.biography.publisher}</HeroInfoValue>
+                  </HeroInfoRow>
+                </HeroInfo>
+              )}
+              {displayData === "connections" && (
+                <HeroInfo>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Group affiliation:</HeroInfoLabel>
+                    <HeroInfoValue>
+                      {hero.connections["group-affiliation"]}
+                    </HeroInfoValue>
+                  </HeroInfoRow>
+                  <HeroInfoRow>
+                    <HeroInfoLabel>Relatives:</HeroInfoLabel>
+                    <HeroInfoValue>{hero.connections.relatives}</HeroInfoValue>
+                  </HeroInfoRow>
+                </HeroInfo>
+              )}
             </HeroName>
           </div>
         </HeroContainer>
