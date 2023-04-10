@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
+import MainPage from "./components/MainPage/MainPage";
 import MarvelHeroes from "./components/Marvel/MarvelHeroes";
 import DCHeroes from "./components/DC/DCHeroes";
 import styled from "styled-components";
@@ -113,7 +114,7 @@ export default function Home() {
           </ul>
         </NavMenu>
       </Nav>
-
+      <MainPage />
       <Routes>
         <Route path="/marvel" element={<MarvelHeroes type="marvel" />} />
         <Route path="/dc" element={<DCHeroes type="dc" />} />

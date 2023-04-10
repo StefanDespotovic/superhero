@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
-import Powerstats from "./Buttons/Powerstats";
-import Biography from "./Buttons/Biography";
-import Appearance from "./Buttons/Appearance";
-import Connections from "./Buttons/Connections";
+import Powerstats from "../Buttons/Powerstats";
+import Biography from "../Buttons/Biography";
+import Appearance from "../Buttons/Appearance";
+import Connections from "../Buttons/Connections";
 
 import styled from "styled-components";
 

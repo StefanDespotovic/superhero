@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import styled from "styled-components";
-import {
-  faBrain,
-  faDumbbell,
-  faTachometer,
-  faShield,
-  faBolt,
-  faFistRaised,
-} from "@fortawesome/free-solid-svg-icons";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Powerstats from "../Buttons/Powerstats";
+import Biography from "../Buttons/Biography";
+import Appearance from "../Buttons/Appearance";
+import Connections from "../Buttons/Connections";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+
 
   h1 {
     margin-top: 1rem;
@@ -30,9 +25,12 @@ const Container = styled.div`
   }
 
     img {
-      width: 15vw;
+      width: 23vw;
       margin-right: 1rem;
       object-fit: cover;
+      border-radius:10px;
+      transition: transform 0.3s ease-in-out; 
+      &:hover { transform: scale(1.02); }
     }
 
 
@@ -40,10 +38,10 @@ const Container = styled.div`
 const HeroContainer = styled.div`
   div {
     background-color: gray;
-
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    border-radius: 10px;
   }
 `;
 
@@ -57,14 +55,33 @@ const HeroName = styled.div`
     margin: 0;
   }
 `;
-const Powerstat = styled.p`
-  color: white;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 1vw;
+`;
+
+const Button = styled.button`
+  margin: 1%;
+  padding: 10px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+  }
 `;
 
 export default function DCHeroes() {
   const [heroes, setHeroes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [displayData, setDisplayData] = useState("powerstats");
 
   useEffect(() => {
     async function fetchHeroes() {
@@ -135,31 +152,28 @@ export default function DCHeroes() {
             <img src={hero.image.url} alt={`${hero.name}`} />
             <HeroName>
               <h2>{hero.name}</h2>
-              <Powerstat>
-                <FontAwesomeIcon icon={faBrain} />
-                {hero.powerstats.intelligence}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faDumbbell} />
-                {hero.powerstats.strength}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faTachometer} />
-                {hero.powerstats.speed}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faShield} />
-                {hero.powerstats.durability}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faBolt} />
-                {hero.powerstats.power}
-              </Powerstat>
-              <Powerstat>
-                <FontAwesomeIcon icon={faFistRaised} />
-                {hero.powerstats.combat}
-              </Powerstat>
-              <p>{hero.biography.publisher}</p>
+              <ButtonContainer>
+                <Button onClick={() => setDisplayData("powerstats")}>
+                  Powerstats
+                </Button>
+                <Button onClick={() => setDisplayData("biography")}>
+                  Biography
+                </Button>
+                <Button onClick={() => setDisplayData("appearance")}>
+                  Appearance
+                </Button>
+                <Button onClick={() => setDisplayData("connections")}>
+                  Connections
+                </Button>
+              </ButtonContainer>
+              {displayData === "powerstats" && (
+                <div>
+                  <Powerstats hero={hero} />
+                </div>
+              )}
+              {displayData === "biography" && <Biography hero={hero} />}
+              {displayData === "appearance" && <Appearance hero={hero} />}
+              {displayData === "connections" && <Connections hero={hero} />}
             </HeroName>
           </div>
         </HeroContainer>
