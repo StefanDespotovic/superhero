@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
-import styled from "styled-components";
-import {
-  faBrain,
-  faDumbbell,
-  faTachometer,
-  faShield,
-  faBolt,
-  faFistRaised,
-} from "@fortawesome/free-solid-svg-icons";
+import Powerstats from "./Buttons/Powerstats";
+import Biography from "./Buttons/Biography";
+import Appearance from "./Buttons/Appearance";
+import Connections from "./Buttons/Connections";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -61,9 +56,6 @@ const HeroName = styled.div`
     margin: 0;
   }
 `;
-const Powerstat = styled.p`
-  color: white;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -84,28 +76,6 @@ const Button = styled.button`
     background-color: #333;
     color: #fff;
   }
-`;
-const HeroInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const HeroInfoRow = styled.div`
-  display: flex;
-  padding-left: 5px;
-  align-items: center;
-  justify-content: space-between;
-  flex-grow: 1;
-  width: 24vw;
-  background-color: lightblue !important;
-`;
-const HeroInfoLabel = styled.p`
-  font-weight: bold;
-  margin-right: 10px;
-`;
-const HeroInfoValue = styled.p`
-  flex: 2;
-  text-align: right;
-  margin-right: 2px;
 `;
 
 export default function MarvelHeroes() {
@@ -199,92 +169,12 @@ export default function MarvelHeroes() {
               </ButtonContainer>
               {displayData === "powerstats" && (
                 <div>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faBrain} />
-                    {hero.powerstats.intelligence}
-                  </Powerstat>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faDumbbell} />
-                    {hero.powerstats.strength}
-                  </Powerstat>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faTachometer} />
-                    {hero.powerstats.speed}
-                  </Powerstat>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faShield} />
-                    {hero.powerstats.durability}
-                  </Powerstat>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faBolt} />
-                    {hero.powerstats.power}
-                  </Powerstat>
-                  <Powerstat>
-                    <FontAwesomeIcon icon={faFistRaised} />
-                    {hero.powerstats.combat}
-                  </Powerstat>
+                  <Powerstats hero={hero} />
                 </div>
               )}
-              {displayData === "biography" && (
-                <HeroInfo>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Full Name:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.biography["full-name"]}</HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Place of Birth:</HeroInfoLabel>
-                    <HeroInfoValue>
-                      {hero.biography["place-of-birth"]}
-                    </HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>First Appearance:</HeroInfoLabel>
-                    <HeroInfoValue>
-                      {hero.biography["first-appearance"]}
-                    </HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Publisher:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.biography.publisher}</HeroInfoValue>
-                  </HeroInfoRow>
-                </HeroInfo>
-              )}
-              {displayData === "appearance" && (
-                <HeroInfo>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Height:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.appearance.height[0]}</HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Weight:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.appearance.weight[0]}</HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Eye color:</HeroInfoLabel>
-                    <HeroInfoValue>
-                      {hero.appearance["hair-color"]}
-                    </HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Hair color:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.biography.publisher}</HeroInfoValue>
-                  </HeroInfoRow>
-                </HeroInfo>
-              )}
-              {displayData === "connections" && (
-                <HeroInfo>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Group affiliation:</HeroInfoLabel>
-                    <HeroInfoValue>
-                      {hero.connections["group-affiliation"]}
-                    </HeroInfoValue>
-                  </HeroInfoRow>
-                  <HeroInfoRow>
-                    <HeroInfoLabel>Relatives:</HeroInfoLabel>
-                    <HeroInfoValue>{hero.connections.relatives}</HeroInfoValue>
-                  </HeroInfoRow>
-                </HeroInfo>
-              )}
+              {displayData === "biography" && <Biography hero={hero} />}
+              {displayData === "appearance" && <Appearance hero={hero} />}
+              {displayData === "connections" && <Connections hero={hero} />}
             </HeroName>
           </div>
         </HeroContainer>
