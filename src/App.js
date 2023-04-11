@@ -114,8 +114,9 @@ export default function Home() {
           </ul>
         </NavMenu>
       </Nav>
-      <MainPage />
+
       <Routes>
+        <Route path="/" element={<MainPage />} exact />
         <Route path="/marvel" element={<MarvelHeroes type="marvel" />} />
         <Route path="/dc" element={<DCHeroes type="dc" />} />
       </Routes>

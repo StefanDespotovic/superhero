@@ -25,7 +25,7 @@ const Container = styled.div`
 
   img {
     width: 23vw;
-    margin-right: 1rem;
+    margin-right: -0.5vw !important;
     object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
@@ -40,6 +40,7 @@ const Container = styled.div`
 
 const HeroContainer = styled.div`
   div {
+    margin-left: 1vw;
     background-color: gray;
     display: flex;
     align-items: flex-start;
@@ -54,10 +55,13 @@ const HeroesContainer = styled.div`
   align-items: center;
   max-width: 100%;
   margin: 0 auto;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
-  padding-left: 23vw;
   user-select: none;
+
+  & > div:first-child {
+    margin-left: 154vw;
+  }
 `;
 
 const HeroName = styled.div`
@@ -103,11 +107,11 @@ export default function MainPage() {
     async function fetchHeroes() {
       try {
         const heroNames = [
-          "scarlet witch",
           "iron man",
+          "scarlet witch",
           "spider-man",
-          "hulk",
           "black widow",
+          "hulk",
         ];
         const fetchedHeroes = [];
         for (const name of heroNames) {
