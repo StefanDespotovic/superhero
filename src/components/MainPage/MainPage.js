@@ -97,14 +97,16 @@ const Button = styled.button`
 `;
 
 export default function MainPage() {
-  const heroesContainerRef = useRef(null);
-  const [heroes, setHeroes] = useState([]);
+  const marvelHeroesContainerRef = useRef(null);
+  const dcHeroesContainerRef = useRef(null);
+  const [marvelHeroes, setMarvelHeroes] = useState([]);
+  const [dcHeroes, setDCHeroes] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [displayData, setDisplayData] = useState("powerstats");
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    async function fetchHeroes() {
+    async function fetchMarvelHeroes() {
       try {
         const heroNames = [
           "iron man",
@@ -123,18 +125,55 @@ export default function MainPage() {
             fetchedHeroes.push(data.results[0]);
           }
         }
-        setHeroes(fetchedHeroes);
+        setMarvelHeroes(fetchedHeroes);
       } catch (error) {
         console.error("Error fetching heroes:", error);
         setErrorMessage("Failed to fetch heroes");
       }
     }
 
-    fetchHeroes();
+    async function fetchDCHeroes() {
+      try {
+        const heroNames = [
+          "batman",
+          "superman",
+          "wonder woman",
+          "flash",
+          "green lantern",
+        ];
+        const fetchedHeroes = [];
+        for (const name of heroNames) {
+          const response = await fetch(
+            `https://superheroapi.com/api.php/3368847760052098/search/${name}`
+          );
+          const data = await response.json();
+          if (data.results && data.results.length > 0) {
+            fetchedHeroes.push(data.results[0]);
+          }
+        }
+        setDCHeroes(fetchedHeroes);
+      } catch (error) {
+        console.error("Error fetching heroes:", error);
+        setErrorMessage("Failed to fetch heroes");
+      }
+    }
+
+    fetchMarvelHeroes();
+    fetchDCHeroes();
   }, []);
+
   const handleMouseMove = (event) => {
     if (isDragging) {
-      const container = heroesContainerRef.current;
+      const container = marvelHeroesContainerRef.current;
+      if (container) {
+        container.scrollLeft -= event.movementX;
+        container.scrollTop -= event.movementY;
+      }
+    }
+  };
+  const handleMouseMove2 = (event) => {
+    if (isDragging) {
+      const container = dcHeroesContainerRef.current;
       if (container) {
         container.scrollLeft -= event.movementX;
         container.scrollTop -= event.movementY;
@@ -149,17 +188,59 @@ export default function MainPage() {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
+
   return (
     <Container>
       <h1>Marvel Heroes</h1>
       {errorMessage !== "" && <p>{errorMessage}</p>}
       <HeroesContainer
-        ref={heroesContainerRef}
+        ref={marvelHeroesContainerRef}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        {heroes.map((hero) => (
+        {marvelHeroes.map((hero) => (
+          <HeroContainer key={hero.id}>
+            <div>
+              <img src={hero.image.url} alt={`${hero.name}`} />
+              <HeroName>
+                <h2>{hero.name}</h2>
+                <ButtonContainer>
+                  <Button onClick={() => setDisplayData("powerstats")}>
+                    Powerstats
+                  </Button>
+                  <Button onClick={() => setDisplayData("biography")}>
+                    Biography
+                  </Button>
+                  <Button onClick={() => setDisplayData("appearance")}>
+                    Appearance
+                  </Button>
+                  <Button onClick={() => setDisplayData("connections")}>
+                    Connections
+                  </Button>
+                </ButtonContainer>
+                {displayData === "powerstats" && (
+                  <div>
+                    <Powerstats hero={hero} />
+                  </div>
+                )}
+                {displayData === "biography" && <Biography hero={hero} />}
+                {displayData === "appearance" && <Appearance hero={hero} />}
+                {displayData === "connections" && <Connections hero={hero} />}
+              </HeroName>
+            </div>
+          </HeroContainer>
+        ))}
+      </HeroesContainer>
+      <h1>DC Heroes</h1>
+      {errorMessage !== "" && <p>{errorMessage}</p>}
+      <HeroesContainer
+        ref={dcHeroesContainerRef}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove2}
+      >
+        {dcHeroes.map((hero) => (
           <HeroContainer key={hero.id}>
             <div>
               <img src={hero.image.url} alt={`${hero.name}`} />

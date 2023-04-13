@@ -22,23 +22,6 @@ const Container = styled.div`
   }
 `;
 
-// Define the hero groups
-const heroGroups = [
-  {
-    name: "Avengers",
-    logo: "/path/to/avengers-logo.png",
-    description: "The Earth's Mightiest Heroes",
-    query: "Avengers",
-  },
-  {
-    name: "X-Men",
-    logo: "/path/to/xmen-logo.png",
-    description: "Mutants fighting for a world that hates and fears them",
-    query: "X-Men",
-  },
-  // Add more hero groups as needed
-];
-
 export default function MarvelHeroes() {
   const [heroes, setHeroes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,10 +66,6 @@ export default function MarvelHeroes() {
     setSearchQuery(query);
   };
 
-  const handleGroupClick = (query) => {
-    setSearchQuery(query);
-  };
-
   console.log("heroes:", heroes);
 
   return (
@@ -94,15 +73,6 @@ export default function MarvelHeroes() {
       <h1>Marvel Heroes</h1>
       <SearchBar onSearch={handleSearch} />
       {errorMessage !== "" && <p>{errorMessage}</p>}
-      {/* Display the hero groups */}
-      <div>
-        {heroGroups.map((group) => (
-          <div key={group.name} onClick={() => handleGroupClick(group.query)}>
-            <img src={group.logo} alt={`${group.name} logo`} />
-            <p>{group.name}</p>
-          </div>
-        ))}
-      </div>
       {heroes.map((hero) => (
         <Hero
           key={hero.id}
