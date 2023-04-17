@@ -3,6 +3,7 @@ import Powerstats from "../Buttons/Powerstats";
 import Biography from "../Buttons/Biography";
 import Appearance from "../Buttons/Appearance";
 import Connections from "../Buttons/Connections";
+import ButtonContainer from "../Buttons/ButtonContainer";
 
 import styled from "styled-components";
 
@@ -18,7 +19,6 @@ const Container = styled.div`
 
   div {
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 1rem;
   }
@@ -63,6 +63,21 @@ const HeroesContainer = styled.div`
     margin-left: 154vw;
   }
 `;
+const HeroesContainer2 = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  user-select: none;
+
+  & > div:first-child {
+    margin-left: 154vw;
+  }
+`;
 
 const HeroName = styled.div`
   display: flex;
@@ -72,27 +87,6 @@ const HeroName = styled.div`
   width: 25vw;
   h2 {
     margin: 0;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-left: 1vw;
-`;
-
-const Button = styled.button`
-  margin: 1%;
-  padding: 10px;
-  background-color: #ddd;
-  color: #333;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #333;
-    color: #fff;
   }
 `;
 
@@ -139,7 +133,7 @@ export default function MainPage() {
           "superman",
           "wonder woman",
           "flash",
-          "green lantern",
+          "green",
         ];
         const fetchedHeroes = [];
         for (const name of heroNames) {
@@ -204,21 +198,10 @@ export default function MainPage() {
             <div>
               <img src={hero.image.url} alt={`${hero.name}`} />
               <HeroName>
-                <h2>{hero.name}</h2>
-                <ButtonContainer>
-                  <Button onClick={() => setDisplayData("powerstats")}>
-                    Powerstats
-                  </Button>
-                  <Button onClick={() => setDisplayData("biography")}>
-                    Biography
-                  </Button>
-                  <Button onClick={() => setDisplayData("appearance")}>
-                    Appearance
-                  </Button>
-                  <Button onClick={() => setDisplayData("connections")}>
-                    Connections
-                  </Button>
-                </ButtonContainer>
+                <h2>{hero.name.toUpperCase()}</h2>
+                <ButtonContainer
+                  setDisplayData={setDisplayData}
+                ></ButtonContainer>
                 {displayData === "powerstats" && (
                   <div>
                     <Powerstats hero={hero} />
@@ -234,7 +217,7 @@ export default function MainPage() {
       </HeroesContainer>
       <h1>DC Heroes</h1>
       {errorMessage !== "" && <p>{errorMessage}</p>}
-      <HeroesContainer
+      <HeroesContainer2
         ref={dcHeroesContainerRef}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
@@ -245,21 +228,10 @@ export default function MainPage() {
             <div>
               <img src={hero.image.url} alt={`${hero.name}`} />
               <HeroName>
-                <h2>{hero.name}</h2>
-                <ButtonContainer>
-                  <Button onClick={() => setDisplayData("powerstats")}>
-                    Powerstats
-                  </Button>
-                  <Button onClick={() => setDisplayData("biography")}>
-                    Biography
-                  </Button>
-                  <Button onClick={() => setDisplayData("appearance")}>
-                    Appearance
-                  </Button>
-                  <Button onClick={() => setDisplayData("connections")}>
-                    Connections
-                  </Button>
-                </ButtonContainer>
+                <h2>{hero.name.toUpperCase()}</h2>
+                <ButtonContainer
+                  setDisplayData={setDisplayData}
+                ></ButtonContainer>
                 {displayData === "powerstats" && (
                   <div>
                     <Powerstats hero={hero} />
@@ -272,7 +244,7 @@ export default function MainPage() {
             </div>
           </HeroContainer>
         ))}
-      </HeroesContainer>
+      </HeroesContainer2>
     </Container>
   );
 }

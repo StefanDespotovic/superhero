@@ -23,13 +23,23 @@ const Powerstat = styled.div`
 const Icon = styled(FontAwesomeIcon)`
   margin-right: 8px;
 `;
+
+const powerstatLabels = {
+  intelligence: "Intelligence",
+  strength: "Strength",
+  speed: "Speed",
+  durability: "Durability",
+  power: "Power",
+  combat: "Combat",
+};
+
 export default function Powerstats({ hero }) {
   return (
     <PowerstatContainer>
       {Object.entries(hero.powerstats).map(([key, value]) => (
         <Powerstat key={key}>
           <Icon icon={faIcons(key)} />
-          {value}
+          {powerstatLabels[key]}: {value}
         </Powerstat>
       ))}
     </PowerstatContainer>

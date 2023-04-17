@@ -2,6 +2,7 @@ import Powerstats from "./Buttons/Powerstats";
 import Biography from "./Buttons/Biography";
 import Appearance from "./Buttons/Appearance";
 import Connections from "./Buttons/Connections";
+import ButtonContainer from "./Buttons/ButtonContainer";
 import styled from "styled-components";
 
 const HeroContainer = styled.div`
@@ -36,48 +37,14 @@ const HeroName = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  margin-left: 1vw;
-`;
-
-const Button = styled.button`
-  margin: 1%;
-  padding: 10px;
-  background-color: #ddd;
-  color: #333;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #333;
-    color: #fff;
-  }
-`;
-
 export default function Hero({ hero, displayData, setDisplayData }) {
   return (
     <HeroContainer>
       <div>
         <img src={hero.image.url} alt={`${hero.name}`} />
         <HeroName>
-          <h2>{hero.name}</h2>
-          <ButtonContainer>
-            <Button onClick={() => setDisplayData("powerstats")}>
-              Powerstats
-            </Button>
-            <Button onClick={() => setDisplayData("biography")}>
-              Biography
-            </Button>
-            <Button onClick={() => setDisplayData("appearance")}>
-              Appearance
-            </Button>
-            <Button onClick={() => setDisplayData("connections")}>
-              Connections
-            </Button>
-          </ButtonContainer>
+          <h2>{hero.name.toUpperCase()}</h2>
+          <ButtonContainer setDisplayData={setDisplayData}></ButtonContainer>
           {displayData === "powerstats" && (
             <div>
               <Powerstats hero={hero} />

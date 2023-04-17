@@ -8,7 +8,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 
   h1 {
     margin-top: 1rem;
@@ -16,7 +15,6 @@ const Container = styled.div`
 
   div {
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 1rem;
   }

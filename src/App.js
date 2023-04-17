@@ -102,6 +102,11 @@ export default function Home() {
         <NavMenu style={{ display: showMenu ? "none" : "block" }}>
           <ul>
             <li>
+              <Link to="/" style={{ color: `white` }}>
+                Home
+              </Link>
+            </li>
+            <li>
               <Link to="/Marvel" style={{ color: `white` }}>
                 Marvel
               </Link>
