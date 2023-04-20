@@ -11,7 +11,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 
   h1 {
     margin-top: 1rem;
@@ -22,7 +21,6 @@ const Container = styled.div`
     justify-content: center;
     margin-top: 1rem;
   }
-
   img {
     width: 23vw;
     margin-right: -0.5vw !important;
@@ -41,10 +39,9 @@ const Container = styled.div`
 const HeroContainer = styled.div`
   div {
     margin-left: 1vw;
-    background-color: gray;
+    background-color: #7e7e7e;
     display: flex;
     align-items: flex-start;
-    justify-content: center;
     border-radius: 10px;
   }
 `;

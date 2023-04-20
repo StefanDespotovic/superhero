@@ -7,17 +7,26 @@ const AppearanceContainer = styled.div`
 
 const AppearanceRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between !important;
   margin-bottom: 8px;
+  min-width: 100%;
+  width: 19vw;
+  background-color: #bababa !important;
+  padding-bottom: 1vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
 `;
-
 const Label = styled.div`
   font-weight: bold;
   margin-right: 8px;
+  background-color: #bababa !important;
 `;
 
 const Value = styled.div`
+  background-color: #bababa !important;
   font-weight: normal;
+  word-wrap: break-word;
 `;
 
 export default function Appearance({ hero }) {
